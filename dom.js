@@ -46,5 +46,10 @@ var p2 = document.getElementById("p2")
 div1.insertBefore(header,p2)
 
 
-alert("P2 siliniyor")
-div1.removeChild(p2);
+// alert("P2 siliniyor")
+// div1.removeChild(p2);
+
+alert("Degistiriliyor")
+var p1 = document.getElementById("p1")
+div1.replaceChild(header,p1)
+//div1.style.backgroundColor ="blue"
