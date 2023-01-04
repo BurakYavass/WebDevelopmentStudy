@@ -27,6 +27,7 @@
 // var nameElements = document.getElementsByName("musteriAdi");
 // alert(nameElements[0].value);
 
+// Name Elementinin ustune gelindiginde event calismasi
 // var nameElements = document.getElementById("isim").addEventListener("mouseover",changeValueP1);
 
 function changeValueP1(){
