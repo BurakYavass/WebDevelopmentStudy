@@ -27,3 +27,14 @@ dizi[1] = "istanbul"
 
 enum Color{Red,Black,Blue}
 let colors = Color.Black;
+
+let notSure : any ="Ankara"
+notSure = 2
+notSure = {}
+
+let deger : void = undefined
+
+function greeter2():void{
+    console.log("Merhaba")
+}
+
