@@ -29,3 +29,10 @@ function topla4(x:number,y?:number):number{
 }
 
 console.log(topla4(10))
+
+
+function invite(firstGuest:string,...others:string[]):string{
+    return firstGuest + " " + others.join(" ");
+}
+
+console.log("Burak","Meltem", " Monster","Silence", "Maya");
