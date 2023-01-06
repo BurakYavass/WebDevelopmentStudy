@@ -1,5 +1,5 @@
 class Home {
-    _numberOfRoom : number;
+    private _numberOfRoom : number;
     _numberOfWindow : number;
     _floor : number;
     constructor(numberOfRoom:number,numberOfWindow:number,floor:number) {
@@ -12,14 +12,25 @@ let home = new Home(3,4,5);
 
 console.log(home._floor)
 
+
 class Kisi{
+    //Tanimlandigi class ve Inherit eden classda 
+    protected nameProtected:string
+    //private tanimlandigi classdan
+    private _namePrivate:string
+    //Public heryerden
+    public namePublic:string
     kaydet(){
         console.log("Kisi kaydedildi")
+        console.log(this._namePrivate)
     }
 }
 
 class Musteri extends Kisi{
     satisYap(){
+        
+        console.log(this.nameProtected)
+        console.log(this.namePublic)
         console.log("Satis yapildi")
     }
 }
