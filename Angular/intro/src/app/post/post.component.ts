@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { Post } from './post';
 import { User} from './user';
-import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { AlertifyService } from '../services/alertify.service';
 import { PostService } from '../services/post.service';
+import { UserService } from '../services/user.service';
 
 
 
@@ -12,24 +12,30 @@ import { PostService } from '../services/post.service';
   selector: 'app-post',
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.css'],
-  providers:[PostService]
+  providers:[PostService,UserService]
 })
 export class PostComponent {
   constructor(
-    private http:HttpClient,
+    
     private activatedRoute : ActivatedRoute,
     private alertifyService: AlertifyService,
-    private postService:PostService
+    private postService:PostService,
+    private userService:UserService,
+    
   ){}
-  path:string="https://jsonplaceholder.typicode.com/"
+  
   posts: Post[] = [];
   users: User[] = [];
-  limit:number = 10;
-  
+  favoritePosts = [];
+  filterText!:string;
+  today : Date = new Date();
+ 
 
   ngOnInit(): void{
-     this.getUsers();
-     
+     this.activatedRoute.params.subscribe(params2 =>{
+      this.getUsers(params2["id"]);
+     }) 
+
      this.activatedRoute.params.subscribe(params=>{
       this.getPosts(params["userid"]);
      })
@@ -41,14 +47,14 @@ export class PostComponent {
     })
   }
 
-  getUsers(){
-    this.http.get<User[]>(this.path+"users").subscribe(response =>{
-      this.users = response;
+  getUsers(id:number){
+    this.userService.getUsers(id).subscribe(data =>{
+      this.users = data;
     })
   }
 
   addToFavorites(post:any){
-    this.alertifyService.error("added of favs :" +post.title)
+    this.alertifyService.success("added of favs :" +post.title)
   }
 
 

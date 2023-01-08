@@ -1,12 +1,24 @@
 <main role="main" class="container">
     <div class="my-3 p-3 bg-body rounded shadow-sm">
-        <h6 class="border-bottom pb-2 mb-0">Recent updates</h6>
-
-        <strong *ngFor = "let user of users">
-            <span  routerLink ="/posts/{{user.id}}" class="badge text-bg-info">{{"@"+user.username}}</span>
+        <h6 class="border-bottom pb-2 mb-0">Users</h6>
+        
+        <strong  *ngFor = "let user of users ">
+            <span class="p-1.5 mb-2 ms-1 badge rounded-pill bg-info text-dark"  routerLink ="/posts/{{user.id}}" >{{"@"+user.username}}</span>
         </strong>
+    </div >
 
-        <div *ngFor="let post of posts" class="d-flex text-muted pt-3">
+    <div>
+        <input class="form-control me-2" [(ngModel)]="filterText" type="search" placeholder="Search" aria-label="Search">
+        <!-- <form class="d-flex" role="search">
+            
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form> -->
+    </div>
+    
+    <div class="my-3 p-3 bg-body rounded shadow-sm">
+        <h6 class="border-bottom pb-2 mb-0">Recent Updates</h6>
+        {{today | date : 'fullDate'}}
+        <div *ngFor="let post of posts | postFilter:filterText" class="d-flex text-muted pt-3">
             <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32"
                 xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32"
                 preserveAspectRatio="xMidYMid slice" focusable="false">
@@ -15,16 +27,16 @@
                     dy=".3em">32x32</text>
             </svg>
             <p class="pb-3 mb-0 small lh-sm border-bottom">
-                <strong class="d-block text-gray-dark">{{post.title}} </strong>
+                <strong class="d-block text-gray-dark">{{post.title | uppercase}} </strong>
                 {{post.body }}
                 <span (click)="addToFavorites(post)" class="badge text-bg-primary"> Favorite</span>
             </p>
         </div>
-        
 
         <small class="d-block text-end mt-3">
             <a href="#">All updates</a>
         </small>
+
     </div>
 
 
