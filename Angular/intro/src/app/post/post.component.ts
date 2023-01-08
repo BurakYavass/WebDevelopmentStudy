@@ -3,17 +3,24 @@ import { Post } from './post';
 import { User} from './user';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
+import { AlertifyService } from '../services/alertify.service';
+import { PostService } from '../services/post.service';
+
 
 
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
-  styleUrls: ['./post.component.css']
+  styleUrls: ['./post.component.css'],
+  providers:[PostService]
 })
 export class PostComponent {
-  constructor(private http:HttpClient, private activatedRoute : ActivatedRoute){
-
-  }
+  constructor(
+    private http:HttpClient,
+    private activatedRoute : ActivatedRoute,
+    private alertifyService: AlertifyService,
+    private postService:PostService
+  ){}
   path:string="https://jsonplaceholder.typicode.com/"
   posts: Post[] = [];
   users: User[] = [];
@@ -22,25 +29,16 @@ export class PostComponent {
 
   ngOnInit(): void{
      this.getUsers();
-
+     
      this.activatedRoute.params.subscribe(params=>{
       this.getPosts(params["userid"]);
-      console.log(params["userid"])
      })
   }
 
-  getPosts(userid :number){
-    if(userid){
-      this.http.get<Post[]>(this.path+"posts?userId="+userid).subscribe(response =>{
-        this.posts = response;
-      });
-    }
-    else{
-      this.http.get<Post[]>(this.path+"posts").subscribe(response =>{
-        this.posts = response;
-      });
-    }
-
+  getPosts(userid:number){
+    this.postService.getPosts(userid).subscribe(data=>{
+      this.posts = data
+    })
   }
 
   getUsers(){
@@ -48,4 +46,10 @@ export class PostComponent {
       this.users = response;
     })
   }
+
+  addToFavorites(post:any){
+    this.alertifyService.error("added of favs :" +post.title)
+  }
+
+
 }

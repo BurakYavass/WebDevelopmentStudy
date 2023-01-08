@@ -17,6 +17,7 @@
             <p class="pb-3 mb-0 small lh-sm border-bottom">
                 <strong class="d-block text-gray-dark">{{post.title}} </strong>
                 {{post.body }}
+                <span (click)="addToFavorites(post)" class="badge text-bg-primary"> Favorite</span>
             </p>
         </div>
         

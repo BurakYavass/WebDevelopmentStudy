@@ -9,6 +9,7 @@ import { CustomerComponent } from './customer/customer.component';
 import { NavComponent } from './nav/nav.component';
 import { PostComponent } from './post/post.component';
 import { routes } from './routes'
+import { AlertifyService } from './services/alertify.service';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,7 @@ import { routes } from './routes'
     HttpClientModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [],
+  providers: [AlertifyService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
